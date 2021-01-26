@@ -139,11 +139,18 @@ Create a function called `getCountryWins` that takes the parameters `data` and `
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
-
-    /* code here */
-
+function getCountryWins(data, teamInitials) {
+    const finalsGames = getFinals(data);
+    const homeFinals = finalsGames.filter(el => el['Home Team Goals'] > el['Away Team Goals']);
+    const awayFinals = finalsGames.filter(el => el['Home Team Goals'] < el['Away Team Goals']);
+    const homeWins = homeFinals.filter(el => el["Home Team Initials"] === teamInitials);
+    const awayWins = awayFinals.filter(el => el["Away Team Initials"] === teamInitials);
+    const teamWins = homeWins.length + awayWins.length;
+    return teamWins;
 }
+
+
+console.log(`The country has won ${getCountryWins(fifaData, 'ITA')} games.`);
 
 
 
